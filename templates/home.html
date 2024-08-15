@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Predicting Health Insurance Costs</title>
+</head>
+<body>
+	{% if message %}
+		<h1 style="color: red;">{{ message }}</h1>
+	{% endif %}	
+	<h1>Enter new information to predict or show previous data points</h1>
+	<form action="/request_old_data" method="POST">
+		<h2>Show health information based on range of insurance cost</h2>
+			Region: 
+			<SELECT name="request">
+			{% for key, value in ranges.items() %}
+				<OPTION value='{{value}}'>{{key}}</option>
+			{% endfor %}
+			</SELECT>
+
+		<p><input type="submit" value="Request Example"></p>
+	</form>
+	<form action="/predict_data" method="POST">
+		<h2>Predict new data:</h2>
+		<table>
+			<tr>
+				<td style="text-align:left">Age: <input type="number" name="age" checked></input></td>
+			</tr>
+			<tr>
+				<td style="text-align:left">Sex:
+					<input type="radio" name="sex" value=1 checked>Male</input>
+					<input type="radio" name="sex" value=0 >Female</input>
+				</td>
+			</tr>
+			<tr>
+				<td style="text-align:left">BMI: <input type="number" name="bmi" checked></input></td>
+			</tr>
+			<tr>
+				<td>Smoker:
+					<input type="radio" name="smoker" value=1 checked>True</input>
+					<input type="radio" name="smoker" value=0 >False</input>
+				</td>
+			</tr>
+			<tr>
+				<td style="text-align:left">Number of Children: <input type="number" name="children" checked></input></td>
+			</tr>
+			<tr>
+				<td> Region: 
+					<SELECT name="region">
+					{% for key, value in regions.items() %}
+							<OPTION value='{{value}}'>{{key}}</option>
+					{% endfor %}
+					</SELECT>
+				</td>
+			</tr>
+		</table>
+		<p><input type="submit" value="Predict Data"></p>
+	</form>
+
+	Note: limitations in data options are a reflection of the dataset and may not apply to everyone!
+
+</body>
+</html>
